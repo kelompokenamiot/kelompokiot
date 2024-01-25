@@ -1,22 +1,22 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:sensordht22/Sensor/data.dart';
 import 'package:sensordht22/Sensor/sensor_1_widget.dart';
+import 'package:sensordht22/log_helper.dart';
 
-class Sensor1Page extends StatelessWidget {
+class Sensor1Page extends StatefulWidget {
   final DatabaseReference databaseReference;
 
   const Sensor1Page({Key? key, required this.databaseReference})
       : super(key: key);
 
-  static double? _parseDouble(dynamic value) {
-    if (value is int) {
-      return value.toDouble();
-    } else if (value is double) {
-      return value;
-    } else {
-      return null; 
-    }
-  }
+  @override
+  _Sensor1PageState createState() => _Sensor1PageState();
+}
+
+class _Sensor1PageState extends State<Sensor1Page> {
+  double? lastUploadedCelsiusValue;
+  double? lastUploadedHumidityValue;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Sensor1Page extends StatelessWidget {
             const SizedBox(height: 50),
             Container(
               child: StreamBuilder<DatabaseEvent>(
-                stream: databaseReference.onValue,
+                stream: widget.databaseReference.onValue,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
@@ -41,13 +41,38 @@ class Sensor1Page extends StatelessWidget {
                     try {
                       final data = snapshot.data!.snapshot.value
                           as Map<dynamic, dynamic>;
-                      final humidityValue = _parseDouble(data['humidity']);
-                      final fahrenheitValue = _parseDouble(data['temp_F']);
-                      final celsiusValue = _parseDouble(data['temp_C']);
+                      final sensorData = parseSensorData(data);
+
+                      final humidityValue = sensorData['humidity'];
+                      final fahrenheitValue = sensorData['temp_F'];
+                      final celsiusValue = sensorData['temp_C'];
 
                       if (humidityValue != null &&
                           fahrenheitValue != null &&
                           celsiusValue != null) {
+                        if (lastUploadedCelsiusValue != celsiusValue ||
+                            lastUploadedHumidityValue != humidityValue) {
+                          lastUploadedCelsiusValue = celsiusValue;
+                          lastUploadedHumidityValue = humidityValue;
+
+                          if (celsiusValue > 30 ||
+                              celsiusValue < 20 ||
+                              humidityValue > 40 ||
+                              humidityValue < 20) {
+                            LogHelper().addLogData(
+                              sensorName: 'SENSOR 1',
+                              formattedDate:
+                                  DateTime.now().toLocal().toString().split(' ')[0],
+                              formattedTime:
+                                  DateTime.now().toLocal().toString().split(' ')[1],
+                              celsiusValue: celsiusValue,
+                              fahrenheitValue: fahrenheitValue,
+                              humidityValue: humidityValue,
+                              keterangan: _generateKeterangan(celsiusValue, humidityValue),
+                            );
+                          }
+                        }
+
                         return SensorWidget(
                           sensorName: 'SENSOR 1',
                           humidityValue: humidityValue,
@@ -69,5 +94,19 @@ class Sensor1Page extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _generateKeterangan(double celsiusValue, double humidityValue) {
+    if (celsiusValue > 30) {
+      return 'Suhu melebihi 30°C';
+    } else if (celsiusValue < 20) {
+      return 'Suhu kurang 20°C';
+    } else if (humidityValue > 40) {
+      return 'Kelembapan Melebihi 40%';
+    } else if (humidityValue < 20) {
+      return 'Kelembapan Kurang 20%';
+    } else {
+      return 'Normal conditions';
+    }
   }
 }

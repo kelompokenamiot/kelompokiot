@@ -2,7 +2,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sensordht22/log_activity_page.dart';
-import 'package:sensordht22/profile_page.dart';
 import 'package:sensordht22/Sensor/Sensor_1_page.dart';
 import 'package:sensordht22/Sensor/Sensor_2_page.dart';
 
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
         FirebaseDatabase.instance.reference().child('sensor2');
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -56,7 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Sensor1Page(databaseReference: FirebaseDatabase.instance.reference().child('sensor1')),
     Sensor2Page(databaseReference: FirebaseDatabase.instance.reference().child('sensor2')),
     const MyLogActivityPage(),
-    const MyProfilePage(),
   ];
 
   @override
@@ -97,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
-        backgroundColor: Color.fromARGB(255, 51, 35, 35),
+        backgroundColor: Colors.grey,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -124,11 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.assignment),
             backgroundColor: Colors.grey,
             label: 'Log Data',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person,),
-            backgroundColor: Colors.grey,
-            label: 'Profile',
           ),
         ],
       ),
