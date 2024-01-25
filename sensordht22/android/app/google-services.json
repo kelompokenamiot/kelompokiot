@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "345614720476",
+    "firebase_url": "https://sensordht22-70d71-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sensordht22-70d71",
+    "storage_bucket": "sensordht22-70d71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345614720476:android:c45629a6393a5fb6bb0319",
+        "android_client_info": {
+          "package_name": "com.example.suhudht22"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkTzXsrqmAFNVofjIwIF0jIQqQd65evls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345614720476:android:092ea631976d1002bb0319",
+        "android_client_info": {
+          "package_name": "com.example.sensordht22"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkTzXsrqmAFNVofjIwIF0jIQqQd65evls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345614720476:android:c45629a6393a5fb6bb0319",
+        "android_client_info": {
+          "package_name": "com.example.suhudht22"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkTzXsrqmAFNVofjIwIF0jIQqQd65evls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
