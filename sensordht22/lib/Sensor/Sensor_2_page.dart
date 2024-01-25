@@ -56,9 +56,9 @@ class _Sensor2PageState extends State<Sensor2Page> {
                           lastUploadedHumidityValue = humidityValue;
 
                           if (celsiusValue > 30 ||
-                              celsiusValue < 20 ||
-                              humidityValue > 40 ||
-                              humidityValue < 20) {
+                              celsiusValue < 25 ||
+                              humidityValue > 65 ||
+                              humidityValue < 30) {
                             LogHelper().addLogData(
                               sensorName: 'SENSOR 2',
                               formattedDate:
@@ -99,12 +99,12 @@ class _Sensor2PageState extends State<Sensor2Page> {
   String _generateKeterangan(double celsiusValue, double humidityValue) {
     if (celsiusValue > 30) {
       return 'Suhu melebihi 30°C';
-    } else if (celsiusValue < 20) {
-      return 'Suhu kurang 20°C';
-    } else if (humidityValue > 40) {
-      return 'Kelembapan Melebihi 40%';
-    } else if (humidityValue < 20) {
-      return 'Kelembapan Kurang 20%';
+    } else if (celsiusValue < 25) {
+      return 'Suhu kurang 25°C';
+    } else if (humidityValue > 65) {
+      return 'Kelembapan Melebihi 65%';
+    } else if (humidityValue < 30) {
+      return 'Kelembapan Kurang 30%';
     } else {
       return 'Normal conditions';
     }
