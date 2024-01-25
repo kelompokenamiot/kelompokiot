@@ -66,8 +66,7 @@ void loop() {
     temp_F2 = dht2.readTemperature(true);
     humidity2 = dht2.readHumidity();
 
-    saveData("sensor1_10min", currentTime, humidity1, temp_C1, temp_F1);
-    saveData("sensor2_10min", currentTime, humidity2, temp_C2, temp_F2);
+
   }
 
   // Upload data setiap 1 detik
@@ -90,39 +89,6 @@ void loop() {
   }
 }
 
-void saveData(const char *sensor, String currentTime, float humidity, float temp_C, float temp_F) {
-  String path = "/" + String(sensor) + "/" + currentTime ;
-
-  Firebase.setFloat(path + "/humidity", humidity);
-  if (Firebase.failed()) {
-    Serial.print("setting ");
-    Serial.print(path);
-    Serial.print("/humidity failed:");
-    Serial.println(Firebase.error());
-    return;
-  }
-  delay(1000);
-
-  Firebase.setFloat(path + "/temp_C", temp_C);
-  if (Firebase.failed()) {
-    Serial.print("setting ");
-    Serial.print(path);
-    Serial.print("/TemperatureC failed:");
-    Serial.println(Firebase.error());
-    return;
-  }
-  delay(1000);
-
-  Firebase.setFloat(path + "/temp_F", temp_F);
-  if (Firebase.failed()) {
-    Serial.print("setting ");
-    Serial.print(path);
-    Serial.print("/TemperatureF failed:");
-    Serial.println(Firebase.error());
-    return;
-  }
-  delay(1000);
-}
 
 void saveDataDetail(const char *sensor,  float humidity, float temp_C, float temp_F) {
   String path = "/" + String(sensor);
