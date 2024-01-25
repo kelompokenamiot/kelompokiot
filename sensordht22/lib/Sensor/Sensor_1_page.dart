@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'sensor_widget.dart';
+import 'package:sensordht22/Sensor/sensor_1_widget.dart';
 
 class Sensor1Page extends StatelessWidget {
   final DatabaseReference databaseReference;

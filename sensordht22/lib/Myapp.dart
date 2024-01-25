@@ -1,10 +1,10 @@
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:sensordht22/Sensor_1_page.dart';
-import 'package:sensordht22/Sensor_2_page.dart';
 import 'package:sensordht22/log_activity_page.dart';
 import 'package:sensordht22/profile_page.dart';
+import 'package:sensordht22/Sensor/Sensor_1_page.dart';
+import 'package:sensordht22/Sensor/Sensor_2_page.dart';
 
 
 class MyApp extends StatelessWidget {
